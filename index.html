@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnora | Telangana & National Smart Student Learning Platform</title>
+    <meta name="description" content="Free student learning platform aligned with Telangana SCERT & CBSE syllabus. Simple explanations, detailed deep dives, video lessons, worked examples and interactive quizzes.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo" id="logoBtn">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">Learnora<span class="logo-dot">.</span></span>
+                <span class="board-badge" id="currentBoardBadge">TS SCERT</span>
+            </a>
+
+            <!-- Search Bar in Header -->
+            <div class="search-wrapper">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="globalSearchInput" placeholder="Search any topic (e.g. Trigonometry, Refraction, Nutrition)..." autocomplete="off">
+                    <button id="clearSearchBtn" class="clear-search-btn hidden">✕</button>
+                </div>
+                <div id="searchResultsDropdown" class="search-dropdown hidden"></div>
+            </div>
+
+            <!-- Nav Controls -->
+            <div class="nav-controls">
+                <div class="board-selector-wrapper">
+                    <label for="boardSelect" class="board-label">Board:</label>
+                    <select id="boardSelect" class="board-select">
+                        <option value="ts" selected>Telangana (TS SCERT)</option>
+                        <option value="cbse">CBSE (NCERT)</option>
+                        <option value="icse">ICSE / Other States</option>
+                    </select>
+                </div>
+
+                <button id="themeToggleBtn" class="icon-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+
+                <button id="bookmarksNavBtn" class="nav-btn-pill">
+                    <span>🔖</span> Saved (<span id="bookmarkCount">0</span>)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-background-glow"></div>
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span class="tag-pulse"></span>
+                <span>Tailored for Telangana State Board & National Syllabi</span>
+            </div>
+            <h1 class="hero-title">
+                Master Difficult Concepts <br>
+                <span class="gradient-text">Step by Step with Ease.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Simple summaries, in-depth explanations, hand-picked YouTube video lessons, real-life examples, and interactive practice quizzes designed specifically for school & intermediate students.
+            </p>
+
+            <div class="hero-quick-steps">
+                <div class="step-chip active"><span class="step-num">1</span> Select Class</div>
+                <div class="step-arrow">→</div>
+                <div class="step-chip"><span class="step-num">2</span> Subject</div>
+                <div class="step-arrow">→</div>
+                <div class="step-chip"><span class="step-num">3</span> Chapter</div>
+                <div class="step-arrow">→</div>
+                <div class="step-chip"><span class="step-num">4</span> Master Topic</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MAIN CONTAINER ================= -->
+    <main class="main-container">
+
+        <!-- Breadcrumb Bar -->
+        <nav class="breadcrumb-container" aria-label="Breadcrumb">
+            <div id="breadcrumb" class="breadcrumb">
+                <span class="crumb-item crumb-active" data-action="home">🏠 Home</span>
+            </div>
+            <div class="view-controls">
+                <button id="backBtn" class="back-btn hidden">
+                    <span>←</span> Go Back
+                </button>
+            </div>
+        </nav>
+
+        <!-- ================= 1. CLASS SELECTION SECTION ================= -->
+        <section id="class-section" class="page-section">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="badge-pill">START HERE</span>
+                    <h2>Choose Your Class Level</h2>
+                    <p class="section-desc">Select your standard to explore your curriculum textbooks, chapters, and topics.</p>
+                </div>
+                <div class="filter-tabs" id="classFilterTabs">
+                    <button class="filter-tab active" data-filter="all">All Classes</button>
+                    <button class="filter-tab" data-filter="highschool">High School (6-10)</button>
+                    <button class="filter-tab" data-filter="intermediate">Intermediate (11-12)</button>
+                </div>
+            </div>
+
+            <div id="class-grid" class="card-grid class-grid"></div>
+        </section>
+
+        <!-- ================= 2. SUBJECT SELECTION SECTION ================= -->
+        <section id="subject-section" class="page-section hidden">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="badge-pill">STEP 2 OF 4</span>
+                    <h2 id="subjectSectionTitle">Select a Subject</h2>
+                    <p class="section-desc" id="subjectSectionDesc">Choose the subject you want to study today.</p>
+                </div>
+            </div>
+
+            <div id="subject-grid" class="card-grid subject-grid"></div>
+        </section>
+
+        <!-- ================= 3. CHAPTER SELECTION SECTION ================= -->
+        <section id="chapter-section" class="page-section hidden">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="badge-pill">STEP 3 OF 4</span>
+                    <h2 id="chapterSectionTitle">Choose a Chapter / Unit</h2>
+                    <p class="section-desc" id="chapterSectionDesc">Explore textbook chapters aligned with the state syllabus.</p>
+                </div>
+            </div>
+
+            <div id="chapter-grid" class="card-grid chapter-grid"></div>
+        </section>
+
+        <!-- ================= 4. TOPIC SELECTION SECTION ================= -->
+        <section id="topic-section" class="page-section hidden">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="badge-pill">STEP 4 OF 4</span>
+                    <h2 id="topicSectionTitle">Select a Concept / Topic</h2>
+                    <p class="section-desc" id="topicSectionDesc">Pick a specific concept to learn with explanations, videos, and quizzes.</p>
+                </div>
+            </div>
+
+            <div id="topic-grid" class="card-grid topic-grid"></div>
+        </section>
+
+        <!-- ================= 5. TOPIC LEARNING MODULE SECTION ================= -->
+        <section id="learning-section" class="page-section hidden">
+            
+            <!-- Lesson Header Bar -->
+            <div class="lesson-banner">
+                <div class="lesson-banner-content">
+                    <div class="lesson-meta-tags">
+                        <span class="meta-tag" id="lessonClassTag">Class 10</span>
+                        <span class="meta-tag" id="lessonSubjectTag">Physical Science</span>
+                        <span class="meta-tag" id="lessonChapterTag">Reflection of Light</span>
+                    </div>
+                    <h1 id="lessonTitle" class="lesson-main-title">Topic Title</h1>
+                    <p id="lessonSubtitle" class="lesson-main-subtitle">Detailed concept breakdown, video lesson & worked examples</p>
+                </div>
+
+                <div class="lesson-banner-actions">
+                    <button id="bookmarkTopicBtn" class="action-btn-secondary" title="Save for revision">
+                        <span id="bookmarkBtnIcon">🔖</span> <span id="bookmarkBtnText">Bookmark</span>
+                    </button>
+                    <button id="readAloudBtn" class="action-btn-secondary" title="Listen to audio explanation">
+                        <span id="speakerIcon">🔊</span> <span id="readAloudText">Listen Aloud</span>
+                    </button>
+                    <button id="printNotesBtn" class="action-btn-secondary" title="Print or Save PDF Notes">
+                        <span>🖨️</span> Print Notes
+                    </button>
+                </div>
+            </div>
+
+            <!-- Learning Module Navigation Tabs -->
+            <div class="learning-tabs-nav">
+                <button class="learn-tab-btn active" data-tab="tab-summary">
+                    <span class="tab-icon">💡</span> In a Nutshell
+                </button>
+                <button class="learn-tab-btn" data-tab="tab-explanation">
+                    <span class="tab-icon">📖</span> Detailed Concept
+                </button>
+                <button class="learn-tab-btn" data-tab="tab-video">
+                    <span class="tab-icon">🎥</span> Video Lessons
+                </button>
+                <button class="learn-tab-btn" data-tab="tab-examples">
+                    <span class="tab-icon">✏️</span> Real-World Examples
+                </button>
+                <button class="learn-tab-btn" data-tab="tab-quiz">
+                    <span class="tab-icon">🧠</span> Practice Quiz
+                </button>
+            </div>
+
+            <!-- TAB 1: SUMMARY -->
+            <div id="tab-summary" class="learn-tab-content active">
+                <div class="content-card highlight-card">
+                    <div class="card-header-flex">
+                        <div class="card-badge">⚡ QUICK SUMMARY</div>
+                        <span class="read-time-badge">⏱️ 2 min read</span>
+                    </div>
+                    <div class="summary-body" id="lessonSummary"></div>
+                </div>
+
+                <div class="key-points-card">
+                    <h3>📌 Key Highlights to Remember</h3>
+                    <ul class="key-points-list" id="lessonKeyPoints"></ul>
+                </div>
+            </div>
+
+            <!-- TAB 2: DETAILED EXPLANATION -->
+            <div id="tab-explanation" class="learn-tab-content">
+                <div class="content-card">
+                    <div class="card-header-flex">
+                        <div class="card-badge blue-badge">📖 COMPREHENSIVE CONCEPT EXPLANATION</div>
+                        <button id="fontSizeToggleBtn" class="text-size-btn" title="Adjust Font Size">A A+</button>
+                    </div>
+                    <div class="explanation-article" id="lessonExplanation"></div>
+                </div>
+            </div>
+
+            <!-- TAB 3: VIDEO LEARNING -->
+            <div id="tab-video" class="learn-tab-content">
+                <div class="content-card video-container-card">
+                    <div class="card-header-flex">
+                        <div class="card-badge red-badge">🎥 CURATED EDUCATIONAL VIDEO</div>
+                        <div class="video-channel-info" id="videoChannelInfo">Top Recommended Teacher</div>
+                    </div>
+                    
+                    <p class="video-intro-text">
+                        Watch this hand-picked visual explanation to clearly understand the underlying concept:
+                    </p>
+
+                    <div class="video-player-frame-wrapper">
+                        <iframe id="videoIframe" src="" title="Educational Video Lesson" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="video-footer-info">
+                        <div class="video-tip">
+                            <span>💡 Tip:</span> You can adjust playback speed to 1.25x or rewind key diagrams if needed.
+                        </div>
+                        <a id="externalVideoLink" href="#" target="_blank" rel="noopener noreferrer" class="external-video-link">
+                            Watch on YouTube ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: WORKED EXAMPLES & APPLICATIONS -->
+            <div id="tab-examples" class="learn-tab-content">
+                <div class="content-card example-container-card">
+                    <div class="card-header-flex">
+                        <div class="card-badge green-badge">✏️ STEP-BY-STEP WORKED EXAMPLES</div>
+                    </div>
+                    <div id="lessonExamples" class="examples-wrapper"></div>
+                </div>
+            </div>
+
+            <!-- TAB 5: PRACTICE QUIZ -->
+            <div id="tab-quiz" class="learn-tab-content">
+                <div class="content-card quiz-container-card">
+                    
+                    <!-- Active Quiz Box -->
+                    <div id="activeQuizBox" class="quiz-active-view">
+                        <div class="quiz-top-bar">
+                            <div class="quiz-info-left">
+                                <span class="quiz-step-counter" id="quizQuestionNumber">Question 1 of 5</span>
+                                <span class="quiz-topic-title" id="quizHeaderTitle">Topic Quiz</span>
+                            </div>
+                            <div class="quiz-score-pill">
+                                <span>Score:</span> <strong id="quizCurrentScore">0</strong>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="quiz-progress-track">
+                            <div id="quizProgressBar" class="quiz-progress-thumb" style="width: 20%;"></div>
+                        </div>
+
+                        <!-- Question Area -->
+                        <div class="quiz-question-box">
+                            <h3 id="quizQuestionText" class="quiz-question-text">Loading question...</h3>
+                            <div id="quizOptionsList" class="quiz-options-grid"></div>
+                            
+                            <div id="quizFeedbackBox" class="quiz-feedback-box hidden">
+                                <div id="feedbackIcon" class="feedback-icon"></div>
+                                <div class="feedback-text-content">
+                                    <div id="feedbackTitle" class="feedback-title"></div>
+                                    <div id="feedbackExplanation" class="feedback-explanation"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quiz-bottom-actions">
+                            <button id="quizNextBtn" class="primary-btn pulse-on-answer" disabled>
+                                Next Question →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Results Box (Hidden until finish) -->
+                    <div id="quizResultBox" class="quiz-result-view hidden">
+                        <div class="result-badge-icon" id="resultBadgeIcon">🏆</div>
+                        <h2 id="resultTitle">Quiz Completed!</h2>
+                        <p class="result-score-highlight" id="resultScoreText">You scored 5 out of 5 (100%)</p>
+                        <p class="result-message" id="resultMessageText">Outstanding understanding! You've mastered this concept.</p>
+
+                        <div class="result-action-buttons">
+                            <button id="retryQuizBtn" class="primary-btn">
+                                🔄 Practice Again
+                            </button>
+                            <button id="nextTopicNavBtn" class="action-btn-secondary">
+                                ➡️ Next Concept in Chapter
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Navigation Bar for Lessons -->
+            <div class="lesson-bottom-nav">
+                <button id="prevTopicBtn" class="secondary-btn">
+                    ← Previous Topic
+                </button>
+                <button id="backToTopicListBtn" class="secondary-btn">
+                    📑 Chapter Topics
+                </button>
+                <button id="nextTopicBtn" class="primary-btn">
+                    Next Topic →
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ================= 6. SAVED BOOKMARKS SECTION ================= -->
+        <section id="bookmarks-section" class="page-section hidden">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="badge-pill">SAVED FOR REVISION</span>
+                    <h2>Your Bookmarked Topics</h2>
+                    <p class="section-desc">Quickly return to concepts you have saved for fast exam revision.</p>
+                </div>
+            </div>
+
+            <div id="bookmarks-list" class="card-grid"></div>
+            <div id="emptyBookmarksView" class="empty-state-card hidden">
+                <div class="empty-icon">🔖</div>
+                <h3>No Bookmarks Yet</h3>
+                <p>When studying any concept, click the "Bookmark" button to save it here for fast revision before exams!</p>
+                <button class="primary-btn" id="exploreFromBookmarksBtn">Explore Classes</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-icon">🎓</span>
+                    <span>Learnora<span class="logo-dot">.</span></span>
+                </div>
+                <p class="footer-tagline">
+                    Empowering students across Telangana and India to master difficult concepts easily with zero stress.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Telangana Boards</h4>
+                    <ul>
+                        <li><a href="#" data-class-link="Class 10">TS SSC Class 10</a></li>
+                        <li><a href="#" data-class-link="Class 9">TS SCERT Class 9</a></li>
+                        <li><a href="#" data-class-link="Class 8">TS SCERT Class 8</a></li>
+                        <li><a href="#" data-class-link="Class 11">Intermediate 1st Year</a></li>
+                        <li><a href="#" data-class-link="Class 12">Intermediate 2nd Year</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Core Subjects</h4>
+                    <ul>
+                        <li><a href="#" data-class-link="Class 10">Mathematics</a></li>
+                        <li><a href="#" data-class-link="Class 10">Physical Science (Physics & Chem)</a></li>
+                        <li><a href="#" data-class-link="Class 10">Biological Science</a></li>
+                        <li><a href="#" data-class-link="Class 10">Social Studies</a></li>
+                        <li><a href="#" data-class-link="Class 10">English & Grammar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Platform Highlights</h4>
+                    <ul>
+                        <li><span class="check-icon">✓</span> 100% Free & Open Access</li>
+                        <li><span class="check-icon">✓</span> Hand-Picked Video Lessons</li>
+                        <li><span class="check-icon">✓</span> Worked Step-by-Step Examples</li>
+                        <li><span class="check-icon">✓</span> Instant Knowledge Check Quizzes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Learnora Smart Student Learning Platform. Designed for students to learn faster and understand deeper.</p>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript Logic & Curriculum Database -->
+    <script src="script.js"></script>
+</body>
+</html>
